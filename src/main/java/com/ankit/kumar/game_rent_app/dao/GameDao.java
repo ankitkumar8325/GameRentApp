@@ -40,15 +40,21 @@ public class GameDao {
         Connection con = getConnection();
         PreparedStatement stmt = con.prepareStatement(query);
 
-        // execute the query
-        ResultSet rs = stmt.executeQuery();
+        try {
+            // execute the query
+            ResultSet rs = stmt.executeQuery();
 
-        // form response and generate users response list
-        final List<Game> gameList = new ArrayList<>();
-        while (rs.next()) {
-            gameList.add(convertResultItemToGame(rs));
+            // form response and generate users response list
+            final List<Game> gameList = new ArrayList<>();
+            while (rs.next()) {
+                gameList.add(convertResultItemToGame(rs));
+            }
+            return gameList;
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            con.close();
         }
-        return gameList;
     }
 
     /**
@@ -65,19 +71,25 @@ public class GameDao {
         Connection con = getConnection();
         PreparedStatement stmt = con.prepareStatement(query);
 
-        // set the request params
-        stmt.setString(1, title);
-        stmt.setString(2, studio);
+        try {
+            // set the request params
+            stmt.setString(1, title);
+            stmt.setString(2, studio);
 
-        // execute the query
-        ResultSet rs = stmt.executeQuery();
+            // execute the query
+            ResultSet rs = stmt.executeQuery();
 
-        // form the response using resultSet
-        Optional<Game> game = Optional.empty();
-        if (rs.next()) {
-            game = Optional.of(convertResultItemToGame(rs));
+            // form the response using resultSet
+            Optional<Game> game = Optional.empty();
+            if (rs.next()) {
+                game = Optional.of(convertResultItemToGame(rs));
+            }
+            return game;
+        } catch (Exception e) {
+            throw  e;
+        } finally {
+            con.close();
         }
-        return game;
     }
 
     /**
@@ -91,13 +103,19 @@ public class GameDao {
         Connection con = getConnection();
         PreparedStatement stmt = con.prepareStatement(query);
 
-        // set the request params
-        stmt.setString(1, game.getTitle());
-        stmt.setString(2, game.getStudio());
+        try {
+            // set the request params
+            stmt.setString(1, game.getTitle());
+            stmt.setString(2, game.getStudio());
 
-        // execute the query
-        int r = stmt.executeUpdate();
-        System.out.println("Rows updated: " + r);
+            // execute the query
+            int r = stmt.executeUpdate();
+            System.out.println("Rows updated: " + r);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            con.close();
+        }
     }
 
 

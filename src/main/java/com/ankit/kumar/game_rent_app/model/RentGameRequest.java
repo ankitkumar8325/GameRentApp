@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Same request is used for return game request as well
+ */
 @Data
 @Builder
 @AllArgsConstructor
@@ -20,5 +23,7 @@ public class RentGameRequest {
 
     @NotEmpty
     private String gameStudio;
+
+    private Boolean returnGameRequest;
 
 }

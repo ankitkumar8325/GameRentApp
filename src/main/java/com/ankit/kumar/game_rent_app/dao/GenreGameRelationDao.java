@@ -35,19 +35,25 @@ public class GenreGameRelationDao {
         Connection con = getConnection();
         PreparedStatement stmt = con.prepareStatement(query);
 
-        // set the request params
-        stmt.setString(1, gameTitle);
-        stmt.setString(2, gameStudio);
+        try {
+            // set the request params
+            stmt.setString(1, gameTitle);
+            stmt.setString(2, gameStudio);
 
-        // execute the query
-        ResultSet rs = stmt.executeQuery();
+            // execute the query
+            ResultSet rs = stmt.executeQuery();
 
-        // form response and generate users response list
-        final List<String> genreIdList = new ArrayList<>();
-        while (rs.next()) {
-            genreIdList.add(rs.getString("genreId"));
+            // form response and generate users response list
+            final List<String> genreIdList = new ArrayList<>();
+            while (rs.next()) {
+                genreIdList.add(rs.getString("genreId"));
+            }
+            return genreIdList;
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            con.close();
         }
-        return genreIdList;
     }
 
     /**
@@ -63,14 +69,20 @@ public class GenreGameRelationDao {
         Connection con = getConnection();
         PreparedStatement stmt = con.prepareStatement(query);
 
-        // set the request params
-        stmt.setString(1, genreId);
-        stmt.setString(2, gameTitle);
-        stmt.setString(3, gameStudio);
+        try {
+            // set the request params
+            stmt.setString(1, genreId);
+            stmt.setString(2, gameTitle);
+            stmt.setString(3, gameStudio);
 
-        // execute the query
-        int r = stmt.executeUpdate();
-        System.out.println("Rows updated: " + r);
+            // execute the query
+            int r = stmt.executeUpdate();
+            System.out.println("Rows updated: " + r);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            con.close();
+        }
     }
 
     // helper methods from here onwards
