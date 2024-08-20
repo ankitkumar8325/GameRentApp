@@ -1,4 +1,4 @@
-package com.ankit.kumar.game_rent_app.helper;
+package com.ankit.kumar.game_rent_app.service;
 
 import com.ankit.kumar.game_rent_app.dao.GenreDao;
 import com.ankit.kumar.game_rent_app.dao.model.Genre;
@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Component
-public class GenreControllerHelper {
+public class GenreControllerService {
     @Autowired
     private GenreDao genreDao;
 

@@ -1,7 +1,7 @@
-package com.ankit.kumar.game_rent_app.web;
+package com.ankit.kumar.game_rent_app.controller;
 
 import com.ankit.kumar.game_rent_app.dao.model.User;
-import com.ankit.kumar.game_rent_app.helper.UserControllerHelper;
+import com.ankit.kumar.game_rent_app.service.UserControllerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,21 +18,21 @@ public class UserController {
 
 
     @Autowired
-    private UserControllerHelper userControllerHelper;
+    private UserControllerService userControllerService;
 
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers() throws SQLException {
-        return userControllerHelper.getAllUsers();
+        return userControllerService.getAllUsers();
     }
 
     @GetMapping("/users/{id}")
     public ResponseEntity<User> getUser(@PathVariable String id) throws SQLException {
-        return userControllerHelper.getUser(id);
+        return userControllerService.getUser(id);
     }
 
     @PostMapping("/createUser")
     public ResponseEntity<User> createUser(@RequestBody @Valid User user) throws SQLException {
-        return userControllerHelper.createUser(user);
+        return userControllerService.createUser(user);
     }
 
     // delete user, then have to delete the mappings for the user and games...

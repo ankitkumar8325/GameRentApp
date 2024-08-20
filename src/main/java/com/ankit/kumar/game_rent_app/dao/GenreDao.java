@@ -40,15 +40,21 @@ public class GenreDao {
         Connection con = getConnection();
         PreparedStatement stmt = con.prepareStatement(query);
 
-        // execute the query
-        ResultSet rs = stmt.executeQuery();
+        try {
+            // execute the query
+            ResultSet rs = stmt.executeQuery();
 
-        // form response and generate users response list
-        final List<Genre> genreList = new ArrayList<>();
-        while (rs.next()) {
-            genreList.add(convertResultItemToGenre(rs));
+            // form response and generate users response list
+            final List<Genre> genreList = new ArrayList<>();
+            while (rs.next()) {
+                genreList.add(convertResultItemToGenre(rs));
+            }
+            return genreList;
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            con.close();
         }
-        return genreList;
     }
 
     /**
@@ -64,18 +70,24 @@ public class GenreDao {
         Connection con = getConnection();
         PreparedStatement stmt = con.prepareStatement(query);
 
-        // set the request params
-        stmt.setString(1, id);
+        try {
+            // set the request params
+            stmt.setString(1, id);
 
-        // execute the query
-        ResultSet rs = stmt.executeQuery();
+            // execute the query
+            ResultSet rs = stmt.executeQuery();
 
-        // form the response using resultSet
-        Optional<Genre> genre = Optional.empty();
-        if (rs.next()) {
-            genre = Optional.of(convertResultItemToGenre(rs));
+            // form the response using resultSet
+            Optional<Genre> genre = Optional.empty();
+            if (rs.next()) {
+                genre = Optional.of(convertResultItemToGenre(rs));
+            }
+            return genre;
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            con.close();
         }
-        return genre;
     }
 
     /**
@@ -91,18 +103,28 @@ public class GenreDao {
         Connection con = getConnection();
         PreparedStatement stmt = con.prepareStatement(query);
 
-        // set the request params
-        stmt.setString(1, genreName);
+        try {
 
-        // execute the query
-        ResultSet rs = stmt.executeQuery();
+            // update the genre to uppercase
+            genreName = genreName.toUpperCase();
 
-        // form the response using resultSet
-        Optional<Genre> genre = Optional.empty();
-        if (rs.next()) {
-            genre = Optional.of(convertResultItemToGenre(rs));
+            // set the request params
+            stmt.setString(1, genreName);
+
+            // execute the query
+            ResultSet rs = stmt.executeQuery();
+
+            // form the response using resultSet
+            Optional<Genre> genre = Optional.empty();
+            if (rs.next()) {
+                genre = Optional.of(convertResultItemToGenre(rs));
+            }
+            return genre;
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            con.close();
         }
-        return genre;
     }
 
     /**
@@ -116,17 +138,23 @@ public class GenreDao {
         Connection con = getConnection();
         PreparedStatement stmt = con.prepareStatement(query);
 
-        // change genre name to UPPER CASE, so it's not duplicated if someone provide different case
-        genre.setGenreName(genre.getGenreName().toUpperCase());
+        try {
+            // change genre name to UPPER CASE, so it's not duplicated if someone provide different case
+            genre.setGenreName(genre.getGenreName().toUpperCase());
 
-        // set the request params
-        stmt.setString(1, genre.getId());
-        stmt.setString(2, genre.getGenreName());
-        stmt.setString(3, genre.getGenreDetail());
+            // set the request params
+            stmt.setString(1, genre.getId());
+            stmt.setString(2, genre.getGenreName());
+            stmt.setString(3, genre.getGenreDetail());
 
-        // execute the query
-        int r = stmt.executeUpdate();
-        System.out.println("Rows updated: " + r);
+            // execute the query
+            int r = stmt.executeUpdate();
+            System.out.println("Rows updated: " + r);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            con.close();
+        }
     }
 
 

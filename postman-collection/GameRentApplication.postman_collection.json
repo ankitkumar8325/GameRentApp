@@ -1,0 +1,398 @@
+{
+	"info": {
+		"_postman_id": "a6d8d59e-9135-4964-a8bb-393e3aac5174",
+		"name": "Game Rent Application",
+		"description": "This Collection is for all APIs for management of Game Rent Application.\n\nIt contains further subfolder for clear division of APIs responsibilities.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "29044862"
+	},
+	"item": [
+		{
+			"name": "User Management",
+			"item": [
+				{
+					"name": "Create User API",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"username\",\n    \"name\": \"Name\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/createUser"
+					},
+					"response": [
+						{
+							"name": "Create User API",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"username\",\n    \"name\": \"Name\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "localhost:8080/createUser"
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/users"
+					},
+					"response": [
+						{
+							"name": "Get All Users",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "localhost:8080/users"
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Get Single User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/users/374459f3-493a-4097-aadb-ab3e3571faa0"
+					},
+					"response": [
+						{
+							"name": "Get Single User",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "localhost:8080/users/userId"
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			],
+			"description": "This Folder cotains all the API endpoint for user management.\n\nPrimarily:\n\n1. Create User\n    \n2. Get All Users\n    \n3. Get Single User"
+		},
+		{
+			"name": "Genre Management",
+			"item": [
+				{
+					"name": "Get All Genres",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/genres"
+					},
+					"response": [
+						{
+							"name": "Get All Genres",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "localhost:8080/genres"
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Get Single Genre",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/genres/1"
+					},
+					"response": [
+						{
+							"name": "Get Single Genre",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "localhost:8080/genres/1"
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Create Genre",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"genreName\": \"Kids\",\n    \"genreDetail\": \"Kid safe games\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/createGenre"
+					},
+					"response": [
+						{
+							"name": "Create Genre",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"genreName\": \"Kids\",\n    \"genreDetail\": \"Kid safe games\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "localhost:8080/createGenre"
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			],
+			"description": "This Folder cotains all the API endpoint for Game-Genre Management.\n\nPrimarily:\n\n1. Create Genre\n    \n2. Get All Genres\n    \n3. Get Single Genre"
+		},
+		{
+			"name": "Game Management",
+			"item": [
+				{
+					"name": "Get All Games",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/games"
+					},
+					"response": [
+						{
+							"name": "Get All Games",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "localhost:8080/games"
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Create Game",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"gameTitle\": \"Need For Speed\",\n    \"gameStudio\": \"Some Car Studio\",\n    \"genres\": [\"Cars\", \"Fun\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/createGame"
+					},
+					"response": [
+						{
+							"name": "Create Game",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"gameTitle\": \"Need For Speed\",\n    \"gameStudio\": \"Some Car Studio\",\n    \"genres\": [\"Cars\", \"Fun\"]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "localhost:8080/createGame"
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Get Single Game",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/games/Need For Speed/Some Car Studio"
+					},
+					"response": [
+						{
+							"name": "Get Single Game",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "localhost:8080/games/{gameTitle}/{gameStudio}"
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			],
+			"description": "This Folder cotains all the API endpoint for Game Management.\n\nPrimarily:\n\n1. Create Game (Even when genre does not exist, It will create a new genre)\n    \n2. Get All Games\n    \n3. Get Single Game"
+		},
+		{
+			"name": "Game Rent Management",
+			"item": [
+				{
+					"name": "Get All Rented Game For User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/gameRentedByUser/374459f3-493a-4097-aadb-ab3e3571faa0"
+					},
+					"response": [
+						{
+							"name": "Get All Rented Game For User",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "localhost:8080/gameRentedByUser/{userId}"
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Rent The Game",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"374459f3-493a-4097-aadb-ab3e3571faa0\",\n    \"gameTitle\": \"GTA 5\",\n    \"gameStudio\": \"Rockstar\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/rentGame"
+					},
+					"response": [
+						{
+							"name": "Rent The Game",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"374459f3-493a-4097-aadb-ab3e3571faa0\",\n    \"gameTitle\": \"GTA 5\",\n    \"gameStudio\": \"Rockstar\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "localhost:8080/rentGame"
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Return The Game",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"374459f3-493a-4097-aadb-ab3e3571faa0\",\n    \"gameTitle\": \"Spiderman\",\n    \"gameStudio\": \"Sony Pictures\",\n    \"returnGameRequest\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/returnGame"
+					},
+					"response": [
+						{
+							"name": "Return The Game",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"374459f3-493a-4097-aadb-ab3e3571faa0\",\n    \"gameTitle\": \"Spiderman\",\n    \"gameStudio\": \"Sony Pictures\",\n    \"returnGameRequest\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "localhost:8080/returnGame"
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			],
+			"description": "This Folder cotains the main API for game rent and return.\n\nPrimarily:\n\n1. Get All Rented Games For User (This will return games rented by user along with game details and genres etc)\n    \n2. Rent the Game (Used to rent the game after proper validation)\n    \n3. Return the Game (Used to return the game and thus updating the quota)"
+		},
+		{
+			"name": "Home Page",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/"
+			},
+			"response": []
+		}
+	]
+}

@@ -39,15 +39,21 @@ public class UserDao {
         Connection con = getConnection();
         PreparedStatement stmt = con.prepareStatement(query);
 
-        // execute the query
-        ResultSet rs = stmt.executeQuery();
+        try {
+            // execute the query
+            ResultSet rs = stmt.executeQuery();
 
-        // form response and generate users response list
-        final List<User> userList = new ArrayList<>();
-        while (rs.next()) {
-            userList.add(convertResultItemToUser(rs));
+            // form response and generate users response list
+            final List<User> userList = new ArrayList<>();
+            while (rs.next()) {
+                userList.add(convertResultItemToUser(rs));
+            }
+            return userList;
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            con.close();
         }
-        return userList;
     }
 
     /**
@@ -63,18 +69,24 @@ public class UserDao {
         Connection con = getConnection();
         PreparedStatement stmt = con.prepareStatement(query);
 
-        // set the request params
-        stmt.setString(1, id);
+        try {
+            // set the request params
+            stmt.setString(1, id);
 
-        // execute the query
-        ResultSet rs = stmt.executeQuery();
+            // execute the query
+            ResultSet rs = stmt.executeQuery();
 
-        // form the response using resultSet
-        Optional<User> user = Optional.empty();
-        if (rs.next()) {
-            user = Optional.of(convertResultItemToUser(rs));
+            // form the response using resultSet
+            Optional<User> user = Optional.empty();
+            if (rs.next()) {
+                user = Optional.of(convertResultItemToUser(rs));
+            }
+            return user;
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            con.close();
         }
-        return user;
 
     }
 
@@ -90,17 +102,23 @@ public class UserDao {
         Connection con = getConnection();
         PreparedStatement stmt = con.prepareStatement(query);
 
-        // change username to uppercase, so that different case username are not considered differemt
-        user.setUsername(user.getUsername().toUpperCase());
+        try {
+            // change username to uppercase, so that different case username are not considered differemt
+            user.setUsername(user.getUsername().toUpperCase());
 
-        // set the request params
-        stmt.setString(1, user.getId().toString());
-        stmt.setString(2, user.getUsername());
-        stmt.setString(3, user.getName());
+            // set the request params
+            stmt.setString(1, user.getId().toString());
+            stmt.setString(2, user.getUsername());
+            stmt.setString(3, user.getName());
 
-        // execute the query
-        int r = stmt.executeUpdate();
-        System.out.println("Rows updated: " + r);
+            // execute the query
+            int r = stmt.executeUpdate();
+            System.out.println("Rows updated: " + r);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            con.close();
+        }
     }
 
 

@@ -1,4 +1,4 @@
-package com.ankit.kumar.game_rent_app.helper;
+package com.ankit.kumar.game_rent_app.service;
 
 import com.ankit.kumar.game_rent_app.dao.*;
 import com.ankit.kumar.game_rent_app.dao.model.Game;
@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class GameRentControllerHelper {
+public class GameRentControllerService {
 
     @Autowired
     private UserDao userDao;
@@ -89,6 +89,37 @@ public class GameRentControllerHelper {
         userGameRelationDao.saveUserGameRelation(rentGameRequest.getUserId(), rentGameRequest.getGameTitle(), rentGameRequest.getGameStudio());
         return new ResponseEntity<>(RentGameResponse.builder()
                 .message("User have been provided the rented game access!!")
+                .build(), HttpStatus.OK);
+    }
+
+    public ResponseEntity<RentGameResponse> returnTheGame(@NonNull RentGameRequest rentGameRequest) throws SQLException {
+
+        // validate that return game flag is set to true
+        if(!Boolean.TRUE.equals(rentGameRequest.getReturnGameRequest())) {
+            return new ResponseEntity<>(RentGameResponse.builder()
+                    .message("Request does not have the 'returnGameRequest' flag as true")
+                    .build(), HttpStatus.BAD_REQUEST);
+        }
+
+        Optional<User> user = userDao.getUser(rentGameRequest.getUserId());
+        if (user.isEmpty()) {
+            return new ResponseEntity<>(RentGameResponse.builder()
+                    .message("Requested user does not exist in our database")
+                    .build(), HttpStatus.BAD_REQUEST);
+        }
+
+        // get the games for the user and check if the game we are trying to return even exist or not
+        Optional<Game> game = userGameRelationDao.getSingleGamesForUser(rentGameRequest.getUserId(), rentGameRequest.getGameTitle(), rentGameRequest.getGameStudio());
+        if (game.isEmpty()) {
+            return new ResponseEntity<>(RentGameResponse.builder()
+                    .message("The game we are trying to return is not rented by the user!")
+                    .build(), HttpStatus.BAD_REQUEST);
+        }
+
+        // delete entry from user-game relation
+        userGameRelationDao.deleteUserGameRelation(rentGameRequest.getUserId(), rentGameRequest.getGameTitle(), rentGameRequest.getGameStudio());
+        return new ResponseEntity<>(RentGameResponse.builder()
+                .message("User has returned the game and therefore Quota is increased by one, You can rent a new game now. Yayy!!")
                 .build(), HttpStatus.OK);
     }
 

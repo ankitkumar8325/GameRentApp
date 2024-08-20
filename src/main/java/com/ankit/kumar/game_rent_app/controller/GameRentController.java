@@ -1,6 +1,6 @@
-package com.ankit.kumar.game_rent_app.web;
+package com.ankit.kumar.game_rent_app.controller;
 
-import com.ankit.kumar.game_rent_app.helper.GameRentControllerHelper;
+import com.ankit.kumar.game_rent_app.service.GameRentControllerService;
 import com.ankit.kumar.game_rent_app.model.RentGameRequest;
 import com.ankit.kumar.game_rent_app.model.RentGameResponse;
 import com.ankit.kumar.game_rent_app.model.RentedGameResponse;
@@ -16,7 +16,7 @@ import java.sql.SQLException;
 public class GameRentController {
 
     @Autowired
-    private GameRentControllerHelper gameRentControllerHelper;
+    private GameRentControllerService gameRentControllerService;
 
     @GetMapping("/")
     public ResponseEntity<String> hello() {
@@ -25,12 +25,17 @@ public class GameRentController {
 
     @GetMapping("/gameRentedByUser/{id}")
     public ResponseEntity<RentedGameResponse> getAllGamesRentedByUser(@PathVariable String id) throws SQLException {
-        return gameRentControllerHelper.getAllGamesRentedByUser(id);
+        return gameRentControllerService.getAllGamesRentedByUser(id);
     }
 
     @PostMapping("rentGame")
     public ResponseEntity<RentGameResponse> rentTheGame(@RequestBody @Valid RentGameRequest rentGameRequest) throws SQLException {
-        return gameRentControllerHelper.rentTheGame(rentGameRequest);
+        return gameRentControllerService.rentTheGame(rentGameRequest);
+    }
+
+    @DeleteMapping("returnGame")
+    public ResponseEntity<RentGameResponse> returnTheGame(@RequestBody @Valid RentGameRequest rentGameRequest) throws SQLException {
+        return gameRentControllerService.returnTheGame(rentGameRequest);
     }
 
 }

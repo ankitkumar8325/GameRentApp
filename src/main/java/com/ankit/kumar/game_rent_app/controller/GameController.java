@@ -1,8 +1,8 @@
-package com.ankit.kumar.game_rent_app.web;
+package com.ankit.kumar.game_rent_app.controller;
 
 import com.ankit.kumar.game_rent_app.dao.GameDao;
 import com.ankit.kumar.game_rent_app.dao.model.Game;
-import com.ankit.kumar.game_rent_app.helper.GameControllerHelper;
+import com.ankit.kumar.game_rent_app.service.GameControllerService;
 import com.ankit.kumar.game_rent_app.model.CreateGame;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,24 +19,22 @@ public class GameController {
     private GameDao gameDao;
 
     @Autowired
-    private GameControllerHelper gameControllerHelper;
+    private GameControllerService gameControllerService;
 
     @GetMapping("/games")
     public ResponseEntity<List<Game>> getGames() throws SQLException {
-        return gameControllerHelper.getGames();
+        return gameControllerService.getGames();
     }
 
-    @GetMapping("/games/{id}")
+    @GetMapping("/games/{title}/{studio}")
     public ResponseEntity<Game> getGame(@PathVariable String title, @PathVariable String studio) throws SQLException {
-        return gameControllerHelper.getGame(title, studio);
+        return gameControllerService.getGame(title, studio);
     }
 
     @PostMapping("/createGame")
     public ResponseEntity<CreateGame> createGame(@RequestBody @Valid CreateGame createGame) throws SQLException {
-        System.out.println("Request received: " + createGame);
-        return gameControllerHelper.createGame(createGame);
+        return gameControllerService.createGame(createGame);
     }
-
 
     // can not allow deletion of game
     // as it might be rented by some user when we are trying to delete its entry

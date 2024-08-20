@@ -1,4 +1,4 @@
-package com.ankit.kumar.game_rent_app.helper;
+package com.ankit.kumar.game_rent_app.service;
 
 import com.ankit.kumar.game_rent_app.dao.UserDao;
 import com.ankit.kumar.game_rent_app.dao.model.User;
@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Component
-public class UserControllerHelper {
+public class UserControllerService {
 
     @Autowired
     private UserDao userDao;

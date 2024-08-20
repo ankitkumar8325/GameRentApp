@@ -1,4 +1,4 @@
-package com.ankit.kumar.game_rent_app.helper;
+package com.ankit.kumar.game_rent_app.service;
 
 import com.ankit.kumar.game_rent_app.dao.GameDao;
 import com.ankit.kumar.game_rent_app.dao.GenreDao;
@@ -20,7 +20,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Component
-public class GameControllerHelper {
+public class GameControllerService {
 
     @Autowired
     private GameDao gameDao;

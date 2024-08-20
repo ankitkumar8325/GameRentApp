@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class UserGameRelationDao {
@@ -30,24 +31,65 @@ public class UserGameRelationDao {
      * @return
      * @throws SQLException
      */
-    public List<Game> getAllGamesForUser(String userId) throws SQLException {
+    public List<Game> getAllGamesForUser(@NonNull String userId) throws SQLException {
         // create a query, get connection and execute the query
         String query = "Select * from " + TABLE_NAME + " where userId = ?";
         Connection con = getConnection();
         PreparedStatement stmt = con.prepareStatement(query);
 
-        // set the request params
-        stmt.setString(1, userId);
+        try {
+            // set the request params
+            stmt.setString(1, userId);
 
-        // execute the query
-        ResultSet rs = stmt.executeQuery();
+            // execute the query
+            ResultSet rs = stmt.executeQuery();
 
-        // form response and generate users response list
-        final List<Game> gameList = new ArrayList<>();
-        while (rs.next()) {
-            gameList.add(convertResultItemToGame(rs));
+            // form response and generate users response list
+            final List<Game> gameList = new ArrayList<>();
+            while (rs.next()) {
+                gameList.add(convertResultItemToGame(rs));
+            }
+            return gameList;
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            con.close();
         }
-        return gameList;
+    }
+
+    /**
+     * This method returns the all game IDs for the requested user
+     *
+     * @param userId
+     * @return
+     * @throws SQLException
+     */
+    public Optional<Game> getSingleGamesForUser(@NonNull String userId, @NonNull String gameTitle, @NonNull String gameStudio) throws SQLException {
+        // create a query, get connection and execute the query
+        String query = "Select * from " + TABLE_NAME + " where userId = ? and gameTitle = ? and gameStudio = ?";
+        Connection con = getConnection();
+        PreparedStatement stmt = con.prepareStatement(query);
+
+        try {
+            // set the request params
+            stmt.setString(1, userId);
+            stmt.setString(2, gameTitle);
+            stmt.setString(3, gameStudio);
+
+            // execute the query
+            ResultSet rs = stmt.executeQuery();
+
+            // form response and generate users response list
+            Optional<Game> game = Optional.empty();
+            if (rs.next()) {
+                game = Optional.of(convertResultItemToGame(rs));
+            }
+            return game;
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            con.close();
+        }
     }
 
     /**
@@ -63,14 +105,49 @@ public class UserGameRelationDao {
         Connection con = getConnection();
         PreparedStatement stmt = con.prepareStatement(query);
 
-        // set the request params
-        stmt.setString(1, userId);
-        stmt.setString(2, gameTitle);
-        stmt.setString(3, gameStudio);
+        try {
+            // set the request params
+            stmt.setString(1, userId);
+            stmt.setString(2, gameTitle);
+            stmt.setString(3, gameStudio);
 
-        // execute the query (PS: I am ignoring the integer value equal to number of rows effected returned, as dont think its useful)
-        int r = stmt.executeUpdate();
-        System.out.println("Row impacted: " + r);
+            // execute the query (PS: I am ignoring the integer value equal to number of rows effected returned, as dont think its useful)
+            int r = stmt.executeUpdate();
+            System.out.println("Row impacted: " + r);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            con.close();
+        }
+    }
+
+    /**
+     * This method will delete user-game relation mapping
+     *
+     * @param userId
+     * @param gameTitle
+     * @param gameStudio
+     * @throws SQLException
+     */
+    public void deleteUserGameRelation(@NonNull String userId, @NonNull String gameTitle, @NonNull String gameStudio) throws SQLException {
+        String query = "Delete from " + TABLE_NAME + " where userId = ? and gameTitle = ? and gameStudio = ?";
+        Connection con = getConnection();
+        PreparedStatement stmt = con.prepareStatement(query);
+
+        try {
+            // set the request params
+            stmt.setString(1, userId);
+            stmt.setString(2, gameTitle);
+            stmt.setString(3, gameStudio);
+
+            // execute the query (PS: I am ignoring the integer value equal to number of rows effected returned, as dont think its useful)
+            int r = stmt.executeUpdate();
+            System.out.println("Row impacted: " + r);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            con.close();
+        }
     }
 
     // helper methods from here onwards
