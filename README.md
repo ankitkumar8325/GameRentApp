@@ -29,4 +29,6 @@ The app contains following main controller classes
  *   Have user already exhasuted the quota
 *   When all remnted games list is requested by user, we send complete response with games and genre details as well (not just IDs)
 
+## PS
+Please use Postman-Collection added for more detailed description of APIs and easy local testing.
 
