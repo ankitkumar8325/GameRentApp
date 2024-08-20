@@ -39,8 +39,6 @@ public class UserDao {
         Connection con = getConnection();
         PreparedStatement stmt = con.prepareStatement(query);
 
-        System.out.println("Prepared query: " + stmt);
-
         // execute the query
         ResultSet rs = stmt.executeQuery();
 

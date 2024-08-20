@@ -59,7 +59,6 @@ public class UserGameRelationDao {
      * @throws SQLException
      */
     public void saveUserGameRelation(@NonNull String userId, @NonNull String gameTitle, @NonNull String gameStudio) throws SQLException {
-        System.out.println("Trying to save game relation in table");
         String query = "Insert into " + TABLE_NAME + " (userId, gameTitle, gameStudio) values (?, ?, ?)";
         Connection con = getConnection();
         PreparedStatement stmt = con.prepareStatement(query);

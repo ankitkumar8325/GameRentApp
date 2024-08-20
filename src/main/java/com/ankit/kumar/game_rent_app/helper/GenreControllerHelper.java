@@ -19,7 +19,6 @@ public class GenreControllerHelper {
     private GenreDao genreDao;
 
     public ResponseEntity<List<Genre>> getAllGenre() throws SQLException {
-        System.out.println("New genre methods used");
         List<Genre> genreList = genreDao.getAllGenres();
         return new ResponseEntity<>(genreList, HttpStatus.OK);
     }

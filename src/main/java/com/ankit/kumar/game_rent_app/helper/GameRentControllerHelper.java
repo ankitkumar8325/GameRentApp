@@ -68,17 +68,14 @@ public class GameRentControllerHelper {
                     .message("Requested user does not exist in our database")
                     .build(), HttpStatus.BAD_REQUEST);
         }
-        System.out.println("Valid user");
 
         // get all games for the user
         List<Game> gameList = userGameRelationDao.getAllGamesForUser(rentGameRequest.getUserId());
-        System.out.println("Game list: " + gameList);
         if (gameList.size() >= MAX_ALLOWED_GAME_COUNT) {
             return new ResponseEntity<>(RentGameResponse.builder()
                     .message("User has already exceeded the quota!!")
                     .build(), HttpStatus.BAD_REQUEST);
         }
-        System.out.println("user limit not exhausted");
 
         // check if game exist or not
         Optional<Game> game = gameDao.getGame(rentGameRequest.getGameTitle(), rentGameRequest.getGameStudio());
@@ -87,11 +84,9 @@ public class GameRentControllerHelper {
                     .message("Requested game is not present in the catalog!!")
                     .build(), HttpStatus.BAD_REQUEST);
         }
-        System.out.println("Game exist in DB");
 
         // add entry in user-game relation
         userGameRelationDao.saveUserGameRelation(rentGameRequest.getUserId(), rentGameRequest.getGameTitle(), rentGameRequest.getGameStudio());
-        System.out.println("Updated game relation");
         return new ResponseEntity<>(RentGameResponse.builder()
                 .message("User have been provided the rented game access!!")
                 .build(), HttpStatus.OK);

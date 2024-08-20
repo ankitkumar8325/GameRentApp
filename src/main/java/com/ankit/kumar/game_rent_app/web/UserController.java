@@ -25,7 +25,6 @@ public class UserController {
         return userControllerHelper.getAllUsers();
     }
 
-
     @GetMapping("/users/{id}")
     public ResponseEntity<User> getUser(@PathVariable String id) throws SQLException {
         return userControllerHelper.getUser(id);
