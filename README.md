@@ -1,7 +1,7 @@
 # GameRentApp
 
 ## Overview
-This is java backend using spring boot for app to game rent mamagenet including user quota management
+This is java backend using **spring boot** for app to game rent mamagenet including user quota management
 
 The app contains DAO for various tables. 
 
